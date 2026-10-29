@@ -1,0 +1,19 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Vitos.AI",
+  "colors": {
+    "primary": "#E91E63",
+    "light": "#F48FB1",
+    "dark": "#C2185B"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "overview"
+        ]
+      }
+    ]
+  }
+}
