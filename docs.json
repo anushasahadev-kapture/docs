@@ -1,5 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
+  "theme": "mint",
   "name": "Vitos.AI",
   "colors": {
     "primary": "#E91E63",
