@@ -1,0 +1,324 @@
+---
+title: "Single Agent"
+icon:
+  name: "circle-user"
+  style: "regular"
+  library: "fontawesome"
+---
+
+<Tabs>
+  <Tab title="Model">
+    ## Provider Settings
+
+    Vitos supports multiple **Large Language Model (LLM)** providers. You can either use Vitos's native in-house models or connect an external provider of your choice.
+
+    <AccordionGroup>
+      <Accordion title="Vitos (In-House)" defaultOpen icon="bolt">
+        Select **Vitos** directly from the **LLM Model** options. No API key required. Choose from the following in-house models in the Model dropdown:
+
+        - Aether Pulse
+        - Aether Nova
+        - Aether Drift
+        - Bolt Halo
+        - Bolt Surge
+        - Gemma
+
+        <Note>
+          Vitos's in-house models are also available for **Transcriber** (Lit, Gemma) and **Voice** (FlowTTS) configurations when Vitos is selected as the provider in those respective tabs.
+        </Note>
+      </Accordion>
+
+      <Accordion title="External Providers" icon="plug">
+        For more control, bring your own LLM:
+
+        <Steps>
+          <Step title="Add a provider">
+            Go to the **Providers** section and add your preferred LLM (e.g., OpenAI, Anthropic, Cohere, Gemini, DeepSeek, etc.). Configure it using an API key. For **OpenAI**, two options are available:
+
+            - **Custom Key** — Enter your own OpenAI API key manually
+            - **Vitos-Generated Key** — Generate an API key directly through Vitos and use it without needing an external OpenAI account
+
+            For all other providers, configure using your own API key.
+          </Step>
+          <Step title="Select the provider">
+            Return to the **Models** tab and select the provider.
+          </Step>
+        </Steps>
+
+        Once selected, configure the following:
+
+        - **API Key** — Select the API key to authenticate with your chosen provider. Keys are pre-configured under the Providers section and appear here as a dropdown once added.
+        - **Model** — Select the specific model version to use (e.g., gpt-4o). Available options depend on the provider selected.
+        - **Service Tier** — Controls the priority and performance level of API requests:
+
+        | Tier | Description |
+        | --- | --- |
+        | Default | Standard API processing with no priority adjustments |
+        | Flex | Flexible processing suited for variable or unpredictable traffic |
+        | Auto | Automatically adjusts the tier based on usage patterns |
+        | Scale | Higher throughput for high-volume or production environments |
+      </Accordion>
+
+      <Accordion title="Adding a New Provider " icon="plus">
+        To add a new LLM provider directly from the Model tab:
+
+        <Steps>
+          <Step title="Click + Add">
+            Click the **\+ Add** button in the top-right corner of the LLM Model section.
+          </Step>
+          <Step title="Select the provider">
+            Select the provider you want to add (e.g., OpenAI, Gemini, DeepSeek).
+          </Step>
+          <Step title="Enter credentials">
+            Enter the required API key and configuration details.
+          </Step>
+          <Step title="Done">
+            Once added, the new provider appears as a selectable card alongside the existing options (Vitos, ChatGPT, Gemini, DeepSeek, etc.).
+          </Step>
+        </Steps>
+      </Accordion>
+
+      <Accordion title="Gemini-Specific Configuration" icon="gear">
+        When **Gemini** is selected as the LLM provider, additional configuration options become available.
+
+        **Model Category** — Choose from one of the following before selecting a specific model version:
+
+        - **Gemini Models** — Standard Gemini models for general-purpose voice and text use cases
+        - **Vertex AI Models** — Google Cloud Vertex AI-hosted models for enterprise deployments
+        - **Text Gemini** — Text-only Gemini models without native audio capabilities
+
+        **Model** — Select the specific model version from the dropdown based on the chosen category.
+
+        **Voice Options** — Choose from available Gemini voice presets, each representing a distinct voice personality. Options include Zephyr, Puck, Charon, Kore, Fenrir, Leda, Orus, Aoede, and others. Select one voice to define how the agent sounds during calls.
+
+        **Voice Activity Detection (VAD)** — Manages automatic speech detection and segmentation during calls. When enabled, the following settings become available:
+
+        | Setting | Description | Default |
+        | --- | --- | --- |
+        | Start of Speech Sensitivity | How sensitive the system is to detecting the beginning of speech | START_SENSITIVITY_UNSPECIFIED |
+        | End of Speech Sensitivity | How sensitive the system is to detecting the end of speech | END_SENSITIVITY_UNSPECIFIED |
+        | Prefix Padding (ms) | Buffer added before detected speech to avoid clipping the start of an utterance | 20 ms |
+        | Silence Duration (ms) | Duration of silence required before the system considers speech to have ended | 100 ms |
+      </Accordion>
+    </AccordionGroup>
+
+    ## Prompt Setup
+
+    Your agent's personality, tone, and intelligence are driven by the prompt you provide. Vitos offers three ways to define this.
+
+    <AccordionGroup>
+      <Accordion title="1. Write Prompt" defaultOpen icon="pen">
+        Enter your prompt directly in the text area. This gives you full control over tone, logic, and conversational behavior. Best for experienced users or highly specific use cases.
+
+        You can also upload a prompt using the **Upload Prompt** option if you have an existing prompt file ready.
+
+        **Prompt Playground** — Once you have written your prompt, use the Prompt Playground to test and optimize it before going live. Deploying untested prompts directly to production risks hallucinations, SOP non-compliance, and token inefficiency.
+
+        <Steps>
+          <Step title="Open Playground">
+            Click **Prompt Playground** in the Model tab.
+          </Step>
+          <Step title="Optimize">
+            Enter your prompt along with guidelines such as guardrails and tone, then click **Optimize Prompt** for automated, best-practice refinement.
+          </Step>
+          <Step title="Test">
+            Click **Test Prompt** to add or auto-generate edge case scenarios, run simulations, review AI-scored results, and apply one-click fixes for any failures.
+          </Step>
+        </Steps>
+      </Accordion>
+
+      <Accordion title="2. Generate Prompt (Assisted Builder)" icon="wand-magic-sparkles">
+        Not sure where to start? Use the guided 4-step prompt generator:
+
+        <Steps>
+          <Step title="Persona">
+            Define who the bot is (e.g., "A friendly customer support assistant").
+          </Step>
+          <Step title="Flow">
+            Describe what the bot should handle (e.g., "Product returns, order status, FAQs").
+          </Step>
+          <Step title="SOP">
+            Add rules, policies, or workflows the bot must follow.
+          </Step>
+          <Step title="Guidelines">
+            Define tone, language, dos and don'ts.
+          </Step>
+        </Steps>
+
+        Once completed, Vitos generates an optimized, ready-to-use prompt that you can further tweak if needed.
+      </Accordion>
+
+      <Accordion title="3. Prompt Library" icon="book">
+        The **Prompt Library** contains a collection of pre-tested, industry-specific prompt templates you can use out of the box. Templates are available across industries including Banking, Customer Support, Education, Medical, and E-commerce.
+
+        <Steps>
+          <Step title="Open Prompt Library">
+            Under Agent Prompts, click **Prompt Library**.
+          </Step>
+          <Step title="Select a template">
+            Select the template that matches your use case.
+          </Step>
+          <Step title="Customize">
+            Edit the pre-populated instructions to customize it for your specific requirements.
+          </Step>
+        </Steps>
+      </Accordion>
+    </AccordionGroup>
+
+    ## Guardrails
+
+    Guardrails are ready-made controls that keep your voice bot on-script without requiring you to write or maintain custom prompt rules. Each guardrail is enabled with a single click and is automatically enforced on every bot response once activated.
+
+    | Guardrail | What it does |
+    | --- | --- |
+    | **Violation** | Blocks harmful, illegal, violent, or policy-violating conversations |
+    | **Commitment** | Prevents unverified promises, guarantees, refunds, or binding commitments |
+    | **Competitor** | Stops abusive or misleading statements about competitors or individuals |
+    | **Off-topic** | Keeps the conversation on relevant, business-related topics |
+    | **Equality** | Blocks hateful, discriminatory, or disrespectful content |
+    | **Fact Check** | Ensures the agent replies only from verified retrieved information and does not guess or infer |
+    | **PII Handle** | Prevents the agent from requesting or accepting OTPs, PINs, passwords, or CVVs |
+    | **Alphanumeric** | Reads identifiers and codes out character by character for accurate pronunciation |
+
+    Click on the guardrail controls you want to activate — enabled guardrails are highlighted. Click **Save and Update** to apply.
+
+    <Note>
+      Guardrails are available for both Single Voice Agents and Multi-Agent flows. In a multi-agent setup, guardrails can be enabled on each Conversation AI node individually.
+    </Note>
+
+    ## Message Handling and Conversation Control
+
+    These settings control how your agent opens, closes, and manages conversations in real-world voice scenarios.
+
+    <AccordionGroup>
+      <Accordion title="Welcome Message" icon="hand-wave">
+        Set what the agent says at the start of every call. This greeting sets the tone for the interaction and is the first thing a caller hears.
+
+        - **Ignore Interruptions** — When enabled, the LLM model ignores the first message from the customer (e.g., "Hello" or "Hi") and completes the welcome message in full. Usually enabled for outbound calls.
+      </Accordion>
+
+      <Accordion title="Closing Message" icon="hand">
+        Set the message the agent delivers before disconnecting the call. This provides a graceful, consistent end to every conversation.
+
+        - **Ignore Interruptions** — When enabled, the LLM model ignores the last message from the customer and plays the closing message in full.
+      </Accordion>
+
+      <Accordion title="IVR Prompts" icon="list-tree">
+        When enabled, the LLM model detects and processes IVR prompts, allowing the bot to handle menu navigation and guide callers through structured response flows before the main conversation begins.
+      </Accordion>
+
+      <Accordion title="Call Disconnection Keywords" icon="phone-xmark">
+        The call is automatically disconnected when the bot says any configured keyword. **Goodbye** is included by default. You can add custom keywords in any language using **Manage Keywords**.
+
+        <Steps>
+          <Step title="Open keywords">
+            Click **Manage Keywords**.
+          </Step>
+          <Step title="Add a keyword">
+            Type the desired keyword and click **Add**.
+          </Step>
+          <Step title="Activate">
+            Select the required keyword from the list to activate it.
+          </Step>
+          <Step title="Include in closing message">
+            Ensure the selected keyword is also included in your closing message or end prompt.
+          </Step>
+          <Step title="Save">
+            Click **Save and Update**.
+          </Step>
+        </Steps>
+
+        <Warning>
+          The selected disconnect keyword must appear in the bot's closing message or end prompt for call disconnection to trigger correctly.
+        </Warning>
+      </Accordion>
+
+      <Accordion title="Customer Re-engagement" icon="rotate">
+        Control how the agent reacts during caller silence:
+
+        - **Silence timeout duration** — How long to wait before re-prompting
+        - **Re-prompt frequency** — How many times to attempt re-engagement
+        - **Re-engagement messages** — Custom prompts such as "Are you still there?"
+
+        Two modes are available:
+
+        - **Manual** — Fixed messages and timing
+        - **LLM-Based** — Dynamically generated prompts based on conversation context
+      </Accordion>
+
+      <Accordion title="Handle API Delays" icon="clock">
+        Configure how the agent responds when an LLM or API call takes too long to respond:
+
+        | Setting | Description |
+        | --- | --- |
+        | **TimeOut** | How many seconds to wait before triggering a fallback |
+        | **Attempts** | How many re-engagement attempts to make |
+        | **Delay** | A waiting period before re-engagement begins, preventing the bot from firing messages while an API call is still in progress |
+        | **Fallback message** | A static response played during the delay, such as "Please give me a moment while I fetch that information." |
+      </Accordion>
+    </AccordionGroup>
+
+    ## Advanced Settings
+
+    Fine-tune how your agent thinks, speaks, and behaves during calls.
+
+    <AccordionGroup>
+      <Accordion title="Temperature (Probability)">
+        Controls how predictable or creative the bot's responses are. Ranges from **0.1** (highly deterministic) to **1.9** (highly creative). The default is **0.3**.
+
+        Use a lower value for support bots that need consistent, accurate answers. Use a higher value for conversational or open-ended interactions.
+      </Accordion>
+
+      <Accordion title="Max Token">
+        Sets the maximum length of each generated response. The default is **400**. Lower this value to keep responses concise; increase it if your bot needs to deliver detailed answers.
+      </Accordion>
+
+      <Accordion title="Tone Selector">
+        Defines the bot's natural conversational tone:
+
+        | Tone | Description |
+        | --- | --- |
+        | **Formal** | Professional and structured language |
+        | **Friendly** | Warm and approachable |
+        | **Casual** | Relaxed and conversational |
+        | **Professional** | Authoritative and business-focused |
+      </Accordion>
+
+      <Accordion title="Language Mirroring">
+        When enabled, the bot mirrors the language capabilities of the model, allowing it to adapt more naturally to the caller's language during the conversation.
+      </Accordion>
+
+      <Accordion title="Pre-initializes Context">
+        When enabled, the LLM session is preloaded before the first message, so the voicebot responds instantly and avoids cold-start delays. Recommended for use cases where fast first-response time is critical.
+      </Accordion>
+
+      <Accordion title="DTMF Input">
+        Enables DTMF (phone keypad) input, allowing callers to press keypad buttons during the call to provide information, navigate menus, or trigger actions. This is useful for entering PINs, OTPs, account numbers, or any other data without speaking it aloud.
+
+        To enable: turn on the **DTMF toggle** from the Advanced section and include the relevant instructions in your bot's prompt.
+      </Accordion>
+
+      <Accordion title="Max Call Duration">
+        Sets the maximum number of minutes before the bot automatically ends the call. The default is **3 minutes**. Adjust this based on the expected length of your bot's conversations.
+
+        <Warning>
+          This setting prevents runaway calls that could inflate usage costs. The change takes effect only after you save and update the bot configuration.
+        </Warning>
+      </Accordion>
+
+      <Accordion title="Max Call Disconnect Message">
+        Sets a custom message that the bot speaks right before it auto-disconnects when the maximum call duration is reached. Without this, the call would end abruptly when the time limit is hit. With a disconnect message configured, callers hear a clean, branded sign-off instead of dead air.
+
+        <Note>
+          This setting is available for both Single and Multi Voice Agents.
+        </Note>
+      </Accordion>
+    </AccordionGroup>
+
+    ## History and Versions
+
+    The clock icon located in the top-right corner of the tab bar opens the ## History and Versions panel. This provides a version history of all previously deployed configurations for the bot, allowing you to track changes across deployments.
+
+    Each version entry includes the deployment timestamp and any release notes added during deployment. Use this to review what changed between versions, compare configurations, or identify when a specific update was pushed live.
+  </Tab>
+</Tabs>
